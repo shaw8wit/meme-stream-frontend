@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://use.fontawesome.com/eda8d202fe.js"></script>
+    <title>Xmeme</title>
+</head>
+
+<body>
+
+    <section class="section p-4">
+        <div class="container" id="add">
+            <form onsubmit="return saveMeme();" class="card">
+                <header class="card-header p-3">
+                    <p class="card-header-title title">Meme Stream</p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        <div class="field">
+                            <label class="label" for="name">Meme Owner</label>
+                            <div class="control">
+                                <input pattern="[a-zA-Z ]{2,}" type="text" name="name" id="name"
+                                    class="has-text-centered input" placeholder="Enter your full name"
+                                    autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="caption">Caption</label>
+                            <div class="control">
+                                <input pattern="[a-zA-Z ]{2,}" type="text" name="caption" id="caption"
+                                    class="has-text-centered input" placeholder="Be creative with the caption"
+                                    autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="url">Meme URL</label>
+                            <div class="control">
+                                <input type="url" name="url" id="url" class="has-text-centered input"
+                                    placeholder="Enter URL of your meme here" autocomplete="off" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <button type="submit" class="button is-success card-footer-item">Submit Meme</button>
+                    <button type="reset" class="button is-warning card-footer-item">Reset</button>
+                </footer>
+            </form>
+        </div>
+    </section>
+
+    <section class="section p-3 pb-6">
+        <div class="container">
+            <div id="output" class="columns is-multiline is-vcentered">
+            </div>
+        </div>
+    </section>
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-up"></i>
+        </span>
+    </button>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
