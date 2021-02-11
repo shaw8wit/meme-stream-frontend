@@ -1,11 +1,13 @@
-const url = document.getElementById('url');
-const form = document.querySelector('form');
-const output = document.getElementById('output');
-const username = document.getElementById('name');
-const caption = document.getElementById('caption');
+const BASE_URL = 'https://damp-caverns-05420.herokuapp.com/https://xmeme-shaw8wit.herokuapp.com/memes';
+
+const URL = document.getElementById('url');
+const FORM = document.querySelector('form');
+const NAME = document.getElementById('name');
+const OUTPUT = document.getElementById('output');
+const CAPTION = document.getElementById('caption');
 
 //Get the button:
-mybutton = document.getElementById("myBtn");
+const mybutton = document.getElementById("myBtn");
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = scrollFunction;
@@ -24,6 +26,7 @@ function topFunction() {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+
 const getMemeBody = (name, caption, url, id, isEditable) => {
     return `<header class="card-header">
                 <h3 class="card-header-title is-size-5">${name}</h3>
@@ -34,21 +37,20 @@ const getMemeBody = (name, caption, url, id, isEditable) => {
         `<div class="field">
             <label class="label" for="caption">Caption</label>
                 <div class="control">
-                    <input pattern="[a-zA-Z ]{2,}" type="text" name="caption" id="caption"
-                        class="has-text-centered input" placeholder="Be creative with the caption"
-                        autocomplete="off" value="${caption}">
+                    <input pattern="[a-zA-Z ]{2,}" type="text" class="has-text-centered input" name="caption"
+                        placeholder="Be creative with the caption" autocomplete="off" value="${caption}">
                 </div>
             </div>
         <div class="field">
             <label class="label" for="url">Meme URL</label>
                 <div class="control">
-                    <input type="url" name="url" id="url" class="has-text-centered input"
+                    <input type="url" class="has-text-centered input" name="url"
                         placeholder="Enter URL of your meme here" autocomplete="off" value="${url}">
                 </div>
         </div>` :
         `<h1 class="subtitle is-size-5-tablet is-size-6-mobile m-0 has-text-weight-normal">${caption}</h1>`
     ) + `</div>
-                    </div>` + (
+    </div>` + (
         isEditable ?
         `` :
         `<div class="card-image">
@@ -57,19 +59,20 @@ const getMemeBody = (name, caption, url, id, isEditable) => {
             </figure>
         </div>`
     ) + `
-            <footer class="card-footer">
-                <button onclick="editMeme(${id})" class="button ` + (
+        <footer class="card-footer">
+            <button onclick="editMeme(${id})" class="button ` + (
         isEditable ?
         'is-link is-outlined' :
         'is-primary is-light'
     ) + ` card-footer-item">
-                    <span class="icon">
-                        <i class="fa fa-` + (isEditable ? 'save' : 'edit') + `"></i>
-                    </span>&nbsp;
-                    ` + (isEditable ? 'Save' : 'Edit') + `
-                </button>
-            </footer>`;
+            <span class="icon">
+                <i class="fa fa-` + (isEditable ? 'save' : 'edit') + `"></i>
+            </span>&nbsp;
+            ` + (isEditable ? 'Save' : 'Edit') + `
+        </button>
+    </footer>`;
 }
+
 
 const getMemeHolder = (name, caption, url, id) => {
     return `<div class="column is-4-desktop is-6-tablet">
@@ -79,59 +82,62 @@ const getMemeHolder = (name, caption, url, id) => {
             </div>`;
 }
 
-const editMeme = (e) => {
-    const meme = document.getElementById(e);
-    if (meme.querySelector('.button .icon .fa').classList.contains('fa-edit')) {
-        meme.innerHTML = getMemeBody()
-    } else {}
+
+const editMeme = (id) => {
+    const meme = document.getElementById(id);
+    const name = meme.querySelector('.card-header-title').innerText;
+    const isEditableNow = meme.querySelector('.button .icon .fa').classList.contains('fa-edit');
+    let caption, url;
+    if (isEditableNow) {
+        caption = meme.querySelector('.subtitle').innerText;
+        url = meme.querySelector('img').src;
+    } else {
+        caption = meme.querySelector('input[name="caption"]').value;
+        url = meme.querySelector('input[name="url"]').value;
+        fetch(`${BASE_URL}/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                caption: caption,
+                url: url,
+            })
+        });
+    }
+    meme.innerHTML = getMemeBody(name, caption, url, id, isEditableNow);
 }
 
-const checkImage = (url) => {
-    var image = new Image();
-    image.onload = function () {
-        if (this.width > 0) {
-            console.log("image exists");
-        }
-    }
-    image.onerror = function () {
-        console.log("image doesn't exist");
-    }
-    image.src = url;
-}
 
 const getMemes = () => {
     let result = '';
-    fetch('https://damp-caverns-05420.herokuapp.com/https://xmeme-shaw8wit.herokuapp.com/memes')
+    fetch(BASE_URL)
         .then(response => response.json())
         .then(data => {
             data.forEach(e => result = result.concat(getMemeHolder(e.name, e.caption, e.url, e.id)));
-            output.innerHTML = result;
+            OUTPUT.innerHTML = result;
         });
 };
 
 
 
 const saveMeme = () => {
-
-    fetch('https://damp-caverns-05420.herokuapp.com/https://xmeme-shaw8wit.herokuapp.com/memes', {
+    fetch(BASE_URL, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                name: username.value,
-                caption: caption.value,
-                url: url.value,
+                name: NAME.value,
+                caption: CAPTION.value,
+                url: URL.value,
             })
         })
-        .then(response => response.json())
-        .then(data => {
-            // console.log(data);
-            getMemes();
-        });
+        .then(response => getMemes());
 
-    form.reset();
+    FORM.reset();
     return false;
 }
 
