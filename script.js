@@ -153,13 +153,15 @@ const editMeme = async (id) => {
     // finally get the body of the edited meme
     meme.innerHTML = getMemeBody(name, caption, url, id, isEditableNow);
     // check the image of the current meme
-    if (!isEditableNow) setTimeout(() => checkImageById(id), 1500);
+    if (!isEditableNow) setTimeout(() => checkImageById(id), 2000);
 }
 
 // gets all memes from the server
 const getMemes = () => {
     // adds progress bar to the main page
-    OUTPUT.innerHTML = `<progress class="m-6 p-3 progress is-large is-info is-10" max="100">45%</progress>`;
+    OUTPUT.innerHTML = `<div class="column p-5">
+    <progress class="progress is-large is-info" max="100">45%</progress>
+    </div>`;
     let result = '';
     fetch(BASE_URL)
         .then(response => response.json())
@@ -168,7 +170,7 @@ const getMemes = () => {
             data.forEach(e => result = result.concat(getMemeHolder(e.name, e.caption, e.url, e.id)));
             OUTPUT.innerHTML = result;
             // check all the fetched meme images
-            setTimeout(checkAllImages, 1500);
+            setTimeout(checkAllImages, 2000);
         });
 };
 
