@@ -4,14 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://use.fontawesome.com/eda8d202fe.js"></script>
     <title>Xmeme</title>
+
+    <!-- ? Imports Bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <!-- ? Imports FontAwesome -->
+    <script src="https://use.fontawesome.com/eda8d202fe.js"></script>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- * Section that contains the main Xmeme Form -->
     <section class="section p-4">
         <div class="container" id="add">
             <form onsubmit="return saveMeme();" class="card">
@@ -23,17 +29,15 @@
                         <div class="field">
                             <label class="label" for="name">Meme Owner</label>
                             <div class="control">
-                                <input pattern="[a-zA-Z ]{2,}" type="text" name="name" id="name"
-                                    class="has-text-centered input" placeholder="Enter your full name"
-                                    autocomplete="off" required>
+                                <input type="text" name="name" id="name" class="has-text-centered input"
+                                    placeholder="Enter your full name" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="field">
                             <label class="label" for="caption">Caption</label>
                             <div class="control">
-                                <input pattern="[a-zA-Z ]{2,}" type="text" name="caption" id="caption"
-                                    class="has-text-centered input" placeholder="Be creative with the caption"
-                                    autocomplete="off" required>
+                                <input type="text" name="caption" id="caption" class="has-text-centered input"
+                                    placeholder="Be creative with the caption" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="field">
@@ -53,6 +57,7 @@
         </div>
     </section>
 
+    <!-- * Section that displays all content -->
     <section class="section p-3 pb-6">
         <div class="container">
             <div id="output" class="columns is-multiline is-vcentered">
@@ -60,21 +65,24 @@
         </div>
     </section>
 
+    <!-- * Button to scroll to top -->
     <button onclick="topFunction()" id="myBtn" title="Go to top">
         <i class="fa fa-arrow-up"></i>
         <span class="px-1">Top</span>
     </button>
 
+    <!-- * Footer for some extra info -->
     <footer class="footer pt-5 pb-6">
         <div class="content has-text-centered">
-            <a class="m-2" href="https://www.linkedin.com/in/shaw8wit" target="_blank">
+            <a class="m-2" href="https://www.linkedin.com/in/shaw8wit" target="_blank" title="LinkedIn">
                 <i class="fa fa-2x fa-linkedin"></i>
             </a>
-            <a class="m-2" href="https://www.github.com/shaw8wit" target="_blank">
+            <a class="m-2" href="https://www.github.com/shaw8wit" target="_blank" title="GitHub">
                 <i class="fa fa-2x fa-github-alt"></i>
             </a>
-            <p class="pt-1">Copyright © Shouvit Pradhan,
-                <a href="https://xmeme-shaw8wit.herokuapp.com/swagger-ui" target="_blank">
+            <p class="pt-2">Copyright © <strong>Shouvit Pradhan</strong>,
+                <a href="https://xmeme-shaw8wit.herokuapp.com/swagger-ui" target="_blank"
+                    title="Go to Swagger UI of the API's used">
                     Swagger UI
                 </a>
             </p>

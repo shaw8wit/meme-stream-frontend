@@ -1,4 +1,5 @@
 html {
+    /* for smooth scrolling */
     scroll-behavior: smooth !important;
 }
 
@@ -8,41 +9,30 @@ body {
 }
 
 #add {
+    /* main form can't be wider than 800px */
     max-width: 800px;
 }
 
 .meme {
+    /* centered meme holder can't be wider than 400px */
     max-width: 400px !important;
     margin: 0 auto;
 }
 
 #myBtn {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Fixed/sticky position */
-    bottom: 4vh;
-    /* Place the button at the bottom of the page */
-    right: 4vw;
-    /* Place the button 30px from the right */
     z-index: 99;
-    /* Make sure it does not overlap */
     border: none;
-    /* Remove borders */
+    bottom: 4vh;
+    right: 4vw;
     outline: none;
-    /* Remove outline */
     background-color: rgb(209, 119, 89);
-    /* Set a background color */
     color: white;
-    /* Text color */
     cursor: pointer;
-    /* Add a mouse pointer on hover */
     padding: 15px;
-    /* Some padding */
     border-radius: 8px;
-    /* Rounded corners */
     font-size: 18px;
-    /* Increase font size */
 }
 
 #myBtn:hover {
@@ -51,5 +41,6 @@ body {
 }
 
 button {
+    /* remove border from all buttons */
     border: none !important;
 }
