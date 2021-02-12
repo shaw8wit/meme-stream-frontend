@@ -1,5 +1,5 @@
 const BASE_URL = 'https://damp-caverns-05420.herokuapp.com/https://xmeme-shaw8wit.herokuapp.com/memes';
-const DEFAULT_URL = 'http://i.imgur.com/jwI5yqK.png';
+const DEFAULT_IMAGE_URL = 'https://i.imgflip.com/265no1.jpg';
 
 const URL = document.getElementById('url');
 const FORM = document.querySelector('form');
@@ -29,7 +29,7 @@ function topFunction() {
 
 const checkImage = (img) => {
     if (!(img.complete && typeof img.naturalWidth !== 'undefined' && img.naturalWidth !== 0)) {
-        img.src = DEFAULT_URL;
+        img.src = DEFAULT_IMAGE_URL;
     }
 }
 
@@ -139,7 +139,7 @@ const editMeme = async (id) => {
         }
     }
     meme.innerHTML = getMemeBody(name, caption, url, id, isEditableNow);
-    checkImageById(id);
+    setTimeout(() => checkImageById(id), 1500);
 }
 
 
@@ -151,7 +151,7 @@ const getMemes = () => {
         .then(data => {
             data.forEach(e => result = result.concat(getMemeHolder(e.name, e.caption, e.url, e.id)));
             OUTPUT.innerHTML = result;
-            checkAllImages();
+            setTimeout(checkAllImages, 1500);
         });
 };
 
