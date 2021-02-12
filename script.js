@@ -1,4 +1,5 @@
 const BASE_URL = 'https://damp-caverns-05420.herokuapp.com/https://xmeme-shaw8wit.herokuapp.com/memes';
+const DEFAULT_URL = 'http://i.imgur.com/jwI5yqK.png';
 
 const URL = document.getElementById('url');
 const FORM = document.querySelector('form');
@@ -26,12 +27,27 @@ function topFunction() {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+const checkImage = (img) => {
+    if (!(img.complete && typeof img.naturalWidth !== 'undefined' && img.naturalWidth !== 0)) {
+        img.src = DEFAULT_URL;
+    }
+}
+
+const checkAllImages = () => {
+    document.querySelectorAll('img').forEach(img => checkImage(img));
+}
+
+const checkImageById = (id) => {
+    const img = document.getElementById(id).querySelector('img');
+    checkImage(img);
+}
+
 
 const getMemeBody = (name, caption, url, id, isEditable) => {
     return `<header class="card-header">
                 <h3 class="card-header-title is-size-5">${name}</h3>
             </header>
-            <div class="card-content">
+            <div class="card-content p-4">
                 <div class="content">` + (
         isEditable ?
         `<div class="field">
@@ -83,40 +99,59 @@ const getMemeHolder = (name, caption, url, id) => {
 }
 
 
-const editMeme = (id) => {
+const editMeme = async (id) => {
     const meme = document.getElementById(id);
-    const name = meme.querySelector('.card-header-title').innerText;
     const isEditableNow = meme.querySelector('.button .icon .fa').classList.contains('fa-edit');
-    let caption, url;
+    meme.querySelector('.card-footer-item').innerHTML = `<progress class="progress is-dark" max="100">45%</progress>`;
+    let caption, url, name;
     if (isEditableNow) {
-        caption = meme.querySelector('.subtitle').innerText;
-        url = meme.querySelector('img').src;
+        await fetch(`${BASE_URL}/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                name = data.name;
+                caption = data.caption;
+                url = data.url;
+            });
     } else {
+        name = meme.querySelector('.card-header-title').innerText;
         caption = meme.querySelector('input[name="caption"]').value;
         url = meme.querySelector('input[name="url"]').value;
-        fetch(`${BASE_URL}/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                caption: caption,
-                url: url,
-            })
-        });
+        if (!caption.length || !url.length) {
+            await fetch(`${BASE_URL}/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    name = data.name;
+                    caption = data.caption;
+                    url = data.url;
+                });
+        } else {
+            fetch(`${BASE_URL}/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    caption: caption,
+                    url: url,
+                })
+            });
+        }
     }
     meme.innerHTML = getMemeBody(name, caption, url, id, isEditableNow);
+    checkImageById(id);
 }
 
 
 const getMemes = () => {
+    OUTPUT.innerHTML = `<progress class="m-6 p-3 progress is-large is-info is-10" max="100">45%</progress>`;
     let result = '';
     fetch(BASE_URL)
         .then(response => response.json())
         .then(data => {
             data.forEach(e => result = result.concat(getMemeHolder(e.name, e.caption, e.url, e.id)));
             OUTPUT.innerHTML = result;
+            checkAllImages();
         });
 };
 

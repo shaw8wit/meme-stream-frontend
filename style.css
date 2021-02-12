@@ -31,7 +31,7 @@ body {
     /* Remove borders */
     outline: none;
     /* Remove outline */
-    background-color: rgb(230, 135, 104);
+    background-color: rgb(209, 119, 89);
     /* Set a background color */
     color: white;
     /* Text color */
@@ -48,7 +48,6 @@ body {
 #myBtn:hover {
     background-color: rgb(241, 203, 198);
     color: black;
-    /* Add a dark-grey background on hover */
 }
 
 button {
