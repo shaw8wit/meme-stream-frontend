@@ -33,13 +33,22 @@ The front-end repo for the meme-stream project, a place for memers to share and 
     <summary><b>Screenshots:</b></summary>
     <ul>
         <li>
-        <img src="./screenshots/desktop.png" alt="desktop">
+            <details>
+                <summary>Desktop</summary>
+                <img src="./screenshots/desktop.png" alt="desktop">
+            </details>
         </li>
         <li>
-        <img src="./screenshots/mobile.png" alt="mobile">
+            <details>
+                <summary>Mobile</summary>
+                <img src="./screenshots/mobile.png" alt="mobile">
+            </details>
         </li>
         <li>
-        <img src="./screenshots/tablet.png" alt="tablet">
+            <details>
+                <summary>Tablet</summary>
+                <img src="./screenshots/tablet.png" alt="tablet">
+            </details>
         </li>
     </ul>
 </details>
