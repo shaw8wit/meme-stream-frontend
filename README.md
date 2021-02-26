@@ -2,26 +2,25 @@
 
 The front-end repo for the meme-stream project, a place for memers to share and appreciate memes together.
 
-+ <details>
-    <summary><b>Built using:</b></summary>
+<details>
+    <summary><b>Built using</b></summary>
     <ul>
-        <li>HTML5</li>
-        <li>CSS3</li>
-        <li>Vanilla JavaScript</li>
+        <li>HTML5/CSS3</li>
+        <li>JavaScript</li>
         <li>BULMA CSS</li>
         <li>FontAwesome</li>
     </ul>
 </details>
 
-+ <details>
-    <summary><b>Deployed using:</b></summary>
+<details>
+    <summary><b>Deployed using</b></summary>
     <ul>
         <li>Netlify</li>
     </ul>
 </details>
 
-+ <details>
-    <summary><b>Frontend Link:</b></summary>
+<details>
+    <summary><b>Frontend Link</b></summary>
     <ul>
         <li>
             <a href="https://xmeme-shaw8wit.netlify.app/">XMEME</a>
@@ -29,8 +28,8 @@ The front-end repo for the meme-stream project, a place for memers to share and 
     </ul>
 </details>
 
-+ <details>
-    <summary><b>Screenshots:</b></summary>
+<details>
+    <summary><b>Screenshots</b></summary>
     <ul>
         <li>
             <details>
